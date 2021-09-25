@@ -1,0 +1,7 @@
+"Response properties"
+interface Result {
+  "Operation status"
+  status: Boolean!
+  "Operation message"
+  message: String!
+}

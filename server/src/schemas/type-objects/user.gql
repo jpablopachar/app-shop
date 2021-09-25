@@ -1,0 +1,18 @@
+type User {
+  "Unique Id"
+  id: ID!
+  "Name"
+  name: String!
+  "Lastname"
+  lastname: String!
+  "Email"
+  email: String!
+  "Password"
+  password: String!
+  "Register Date"
+  registerDate: String!
+  "Birthday"
+  birthday: String!
+  "User permises"
+  role: Role!
+}

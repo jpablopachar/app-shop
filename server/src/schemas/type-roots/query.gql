@@ -1,0 +1,10 @@
+type Query {
+  "Users list"
+  users: ResultUsers
+  "User login"
+  login(email: String!, password: String!): ResultLogin
+  "Token authentication"
+  me: ResultUser
+  "Products"
+  products: Boolean
+}

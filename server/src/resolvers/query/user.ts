@@ -1,10 +1,11 @@
 import { IResolvers } from '@graphql-tools/utils';
 import { compareSync } from 'bcrypt';
-import { Db, Document } from 'mongodb';
-import { COLLECTIONS, MESSAGES } from '../config/constants';
-import { Jwt } from '../lib/jwt';
+import { Document } from 'mongodb';
+import { COLLECTIONS, MESSAGES } from '../../config/constants';
+import { findElements, findOneElement } from '../../lib/db-operations';
+import { Jwt } from '../../lib/jwt';
 
-const resolvers: IResolvers = {
+const resolversUserQuery: IResolvers = {
   Query: {
     async users (
       _,
@@ -15,10 +16,7 @@ const resolvers: IResolvers = {
         return {
           status: true,
           message: 'User list loaded',
-          users: await (db as Db)
-            .collection(COLLECTIONS.USERS)
-            .find()
-            .toArray()
+          users: await findElements(db, COLLECTIONS.USERS)
         };
       } catch (error) {
         console.log(error);
@@ -40,9 +38,7 @@ const resolvers: IResolvers = {
       token: string | null;
     }> {
       try {
-        const user = await (db as Db)
-          .collection(COLLECTIONS.USERS)
-          .findOne({ email });
+        const user = await findOneElement(db, COLLECTIONS.USERS, { email })
 
         if (user === null) {
           return {
@@ -99,4 +95,4 @@ const resolvers: IResolvers = {
   }
 };
 
-export default resolvers;
+export default resolversUserQuery;
